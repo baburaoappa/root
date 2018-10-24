@@ -1,0 +1,69 @@
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.cluster import KMeans
+import sklearn.metrics as sm
+ 
+import pandas as pd
+import numpy as np
+
+iris = datasets.load_iris()
+
+#Printing the datasets
+print iris.feature_names
+print iris.data
+print '---------------------Original Values--------------------------------------------'
+# 0-sentosa 1-versicolor 2-virginica
+print iris.target_names
+print iris.target
+
+features_train = pd.DataFrame(iris.data)
+features_train.columns = ['Sepal_Length','Sepal_Width','Petal_Length','Petal_Width']
+
+labels_train = pd.DataFrame(iris.target)
+labels_train.columns = ['Targets']
+
+plt.figure(figsize=(14,7))
+colormap = np.array(['red','lime','black'])
+
+plt.subplot(1, 2, 1)
+plt.scatter(features_train.Sepal_Length, features_train.Sepal_Width, c=colormap[labels_train.Targets], s=50)
+plt.title('Sepal')
+plt.show()
+
+plt.subplot(1, 2, 2)
+plt.scatter(features_train.Petal_Length, features_train.Petal_Width, c=colormap[labels_train.Targets], s=40)
+plt.title('Petal')
+plt.show()
+
+# K Means Cluster
+model = KMeans(n_clusters = 3)
+model.fit(features_train)
+
+# This is what KMeans thought
+labels_pred = model.labels_
+
+print '--------------------Predicted Values----------------------------------'
+print labels_pred
+
+# View the results
+# Set the size of the plot
+plt.figure(figsize=(14,7))
+ 
+# Create a colormap
+colormap = np.array(['red', 'lime', 'black'])
+ 
+# Plot the Original Classifications
+plt.subplot(1, 2, 1)
+plt.scatter(features_train.Petal_Length, features_train.Petal_Width, c=colormap[labels_train.Targets], s=40)
+plt.title('Real Classification')
+plt.show()
+ 
+# Plot the Models Classifications
+plt.subplot(1, 2, 2)
+plt.scatter(features_train.Petal_Length, features_train.Petal_Width, c=colormap[labels_pred], s=40)
+plt.title('K Mean Classification')
+plt.show()
+
+kmeansbhu.py
+Displaying kmeansbhu.py.
+
